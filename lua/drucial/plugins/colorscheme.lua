@@ -1,40 +1,35 @@
 return {
-  {
-    "folke/tokyonight.nvim",
-    priority = 1000, -- make sure to load this before all the other start plugins
-    config = function()
-      local bg = "#011628"
-      local bg_dark = "#011423"
-      local bg_highlight = "#143652"
-      local bg_search = "#0A64AC"
-      local bg_visual = "#275378"
-      local fg = "#CBE0F0"
-      local fg_dark = "#B4D0E9"
-      local fg_gutter = "#627E97"
-      local border = "#547998"
-
-      require("tokyonight").setup({
-        style = "night",
-        on_colors = function(colors)
-          colors.bg = bg
-          colors.bg_dark = bg_dark
-          colors.bg_float = bg_dark
-          colors.bg_highlight = bg_highlight
-          colors.bg_popup = bg_dark
-          colors.bg_search = bg_search
-          colors.bg_sidebar = bg_dark
-          colors.bg_statusline = bg_dark
-          colors.bg_visual = bg_visual
-          colors.border = border
-          colors.fg = fg
-          colors.fg_dark = fg_dark
-          colors.fg_float = fg
-          colors.fg_gutter = fg_gutter
-          colors.fg_sidebar = fg_dark
-        end,
-      })
-      -- load the colorscheme here
-      vim.cmd([[colorscheme tokyonight]])
-    end,
-  },
+	"scottmckendry/cyberdream.nvim",
+	lazy = false,
+	priority = 1000,
+	config = function()
+		require("cyberdream").setup({
+			-- Recommended - see "Configuring" below for more config options
+			transparent = true,
+			italic_comments = true,
+			hide_fillchars = true,
+			borderless_telescope = true,
+			terminal_colors = true,
+			theme = {
+				colors = {
+					bg = "#030517", -- Updated to match the darker blue background
+					bgAlt = "#1e2124", -- Kept as it is
+					bgHighlight = "#3c4048", -- Kept as it is
+					cursor = "#ffffff", -- Kept as it is
+					fg = "#ffffff", -- Kept as it is
+					grey = "#7b8496", -- Kept as it is
+					blue = "#00FFFF", -- Kept as it is
+					green = "#ecff8d", -- Updated to lean towards yellow
+					cyan = "#5ef1ff", -- Kept as it is
+					red = "#ff8272", -- Kept as it is
+					yellow = "#ffbd5e", -- Updated to be more towards orange
+					magenta = "#ff8ffd", -- Kept as it is
+					pink = "#ff5ea0", -- Kept as it is
+					orange = "#ffbd5e", -- Kept as it is
+					purple = "#bd5eff", -- Kept as it is
+				},
+			},
+		})
+		vim.cmd("colorscheme cyberdream") -- set the colorscheme
+	end,
 }
