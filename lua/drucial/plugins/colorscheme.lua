@@ -1,19 +1,19 @@
 local colors = {
-	bg = "#030517", -- Updated to match the darker blue background
-	bgAlt = "#1e2124", -- Kept as it is
-	bgHighlight = "#3c4048", -- Kept as it is
-	cursor = "#ffffff", -- Kept as it is
-	fg = "#ffffff", -- Kept as it is
-	grey = "#7b8496", -- Kept as it is
-	blue = "#00FFFF", -- Kept as it is
-	green = "#ecff8d", -- Updated to lean towards yellow
-	cyan = "#5ef1ff", -- Kept as it is
-	red = "#ff8272", -- Kept as it is
-	yellow = "#ffbd5e", -- Updated to be more towards orange
-	magenta = "#ff8ffd", -- Kept as it is
-	pink = "#ff5ea0", -- Kept as it is
-	orange = "#ffbd5e", -- Kept as it is
-	purple = "#bd5eff", -- Kept as it is
+	bg = "#030517",
+	bgAlt = "#1e2124",
+	bgHighlight = "#3c4048",
+	cursor = "#EDF2F6",
+	fg = "#FFFFFF",
+	grey = "#8894AD",
+	blue = "#00C2FF",
+	green = "#C0FE3D",
+	cyan = "#69FEE3",
+	red = "#FF4E4E",
+	yellow = "#FEEC4B",
+	magenta = "#FF3C77",
+	pink = "#FF3CA6",
+	orange = "#FFA620",
+	purple = "#A347FF",
 }
 
 return {
@@ -26,7 +26,7 @@ return {
 			transparent = true,
 			italic_comments = true,
 			hide_fillchars = true,
-			borderless_telescope = true,
+			borderless_telescope = false,
 			terminal_colors = true,
 			theme = { colors = colors },
 		})
