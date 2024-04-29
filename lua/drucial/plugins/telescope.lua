@@ -22,11 +22,11 @@ return {
 					},
 				},
 			},
-			pickers = {
-				find_files = {
-					theme = "ivy",
-				},
-			},
+			-- pickers = {
+			-- 	find_files = {
+			-- 		theme = "ivy",
+			-- 	},
+			-- },
 		})
 
 		telescope.load_extension("fzf")
