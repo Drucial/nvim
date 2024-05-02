@@ -12,8 +12,17 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
-	{ import = "drucial.plugins" },
+	{
+		import = "drucial.plugins",
+	},
 }, {
+	ui = {
+		border = "single",
+		size = {
+			width = 0.8,
+			height = 0.8,
+		},
+	},
 	change_detection = {
 		checker = {
 			enabled = true,

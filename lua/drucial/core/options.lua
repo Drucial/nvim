@@ -37,6 +37,12 @@ opt.backspace = "indent,eol,start" -- allow backspace on indent, end of line or 
 opt.clipboard:append("unnamedplus") -- use system clipboard as default register
 
 -- split windows
+-- Set fillchars to customize window split dividers
+vim.opt.fillchars = {
+	vert = "│", -- Use a vertical line as divider
+	fold = " ", -- Use a space to hide the fold column
+}
+
 opt.splitright = true -- split vertical window to the right
 opt.splitbelow = true -- split horizontal window to the bottom
 

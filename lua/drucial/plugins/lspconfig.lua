@@ -31,6 +31,14 @@ return {
 				capabilities = capabilities,
 			})
 
+      vim.diagnostic.config({
+        virtual_text = false,
+        signs = true,
+        underline = true,
+        update_in_insert = true,
+        severity_sort = false,
+      })
+
 			vim.keymap.set("n", "<leader>rs", ":LspRestart<CR>", { silent = true })
 			vim.keymap.set("n", "gR", "<cmd>Telescope lsp_references<CR>", { silent = true })
 			vim.keymap.set("n", "gD", vim.lsp.buf.declaration, { silent = true })

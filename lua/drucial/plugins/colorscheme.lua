@@ -25,7 +25,7 @@ return {
 			-- Recommended - see "Configuring" below for more config options
 			transparent = true,
 			italic_comments = true,
-			hide_fillchars = true,
+			-- hide_fillchars = true,
 			borderless_telescope = false,
 			terminal_colors = true,
 			theme = { colors = colors },
