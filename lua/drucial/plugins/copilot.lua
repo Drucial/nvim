@@ -1,13 +1,31 @@
 return {
 	"zbirenbaum/copilot.lua",
+	dependencies = {
+		{ "hrsh7th/nvim-cmp" },
+	},
 	cmd = "Copilot",
 	build = ":Copilot auth",
-	opts = {
-		suggestion = { enabled = false },
-		panel = { enabled = false },
-		filetypes = {
-			markdown = true,
-			help = true,
-		},
-	},
+	event = "InsertEnter",
+	config = function()
+		require("copilot").setup({
+			panel = {
+				auto_refresh = true,
+			},
+			suggestion = {
+				auto_trigger = true,
+			},
+		})
+
+		-- hide copilot suggestions when cmp menu is open
+		local cmp_status_ok, cmp = pcall(require, "cmp")
+		if cmp_status_ok then
+			cmp.event:on("menu_opened", function()
+				vim.b.copilot_suggestion_hidden = true
+			end)
+
+			cmp.event:on("menu_closed", function()
+				vim.b.copilot_suggestion_hidden = false
+			end)
+		end
+	end,
 }
