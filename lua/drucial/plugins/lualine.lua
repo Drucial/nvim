@@ -32,7 +32,6 @@ return {
   dependencies = { "nvim-tree/nvim-web-devicons" },
   config = function()
     local lualine = require("lualine")
-    local lazy_status = require("lazy.status") -- to configure lazy pending updates count
     local colorscheme = require("drucial/plugins/colorscheme")
     local colors = colorscheme.colors
 
