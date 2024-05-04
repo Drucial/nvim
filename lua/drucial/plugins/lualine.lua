@@ -1,3 +1,35 @@
+-- Lualine Configuration
+-- This configuration sets up the lualine.nvim plugin, which provides a customizable
+-- statusline for Neovim.
+--
+-- Lualine Sections:
+--   a: Displays the current mode, such as Normal, Insert, Visual, etc.
+--   b: Displays the current git repository name and branch, limited to 20 characters.
+--   c: Additional buffer information, such as line number, column number, etc.
+--   x: Custom section to display lazy updates count, file size, and file type.
+--      - filesize: Displays the size of the current file.
+--      - filetype: Displays the file type (e.g., lua, python).
+
+local cached_git_repo = nil
+
+local git_repo = function()
+	-- If the result is already cached, return it
+	if cached_git_repo ~= nil then
+		return cached_git_repo
+	end
+
+	-- Otherwise, calculate the repository root
+	local output = vim.fn.systemlist("git rev-parse --show-toplevel")
+	if vim.tbl_isempty(output) then
+		cached_git_repo = ""
+	else
+		cached_git_repo = vim.fn.fnamemodify(output[1], ":t")
+	end
+
+	-- Return the result
+	return cached_git_repo
+end
+
 return {
 	"nvim-lualine/lualine.nvim",
 	dependencies = { "nvim-tree/nvim-web-devicons" },
@@ -10,32 +42,32 @@ return {
 		local my_lualine_theme = {
 			normal = {
 				a = { bg = colors.cyan, fg = colors.bg, gui = "bold" },
-				b = { bg = colors.bg, fg = colors.grey },
+				b = { bg = colors.bgAlt, fg = colors.grey },
 				c = { bg = colors.bg, fg = colors.grey },
 			},
 			insert = {
 				a = { bg = colors.green, fg = colors.bg, gui = "bold" },
-				b = { bg = colors.bg, fg = colors.grey },
+				b = { bg = colors.bgAlt, fg = colors.grey },
 				c = { bg = colors.bg, fg = colors.grey },
 			},
 			visual = {
 				a = { bg = colors.pink, fg = colors.bg, gui = "bold" },
-				b = { bg = colors.bg, fg = colors.grey },
+				b = { bg = colors.bgAlt, fg = colors.grey },
 				c = { bg = colors.bg, fg = colors.grey },
 			},
 			command = {
 				a = { bg = colors.pink, fg = colors.bg, gui = "bold" },
-				b = { bg = colors.bg, fg = colors.grey },
+				b = { bg = colors.bgAlt, fg = colors.grey },
 				c = { bg = colors.bg, fg = colors.grey },
 			},
 			replace = {
 				a = { bg = colors.red, fg = colors.bg, gui = "bold" },
-				b = { bg = colors.bg, fg = colors.grey },
+				b = { bg = colors.bgAlt, fg = colors.grey },
 				c = { bg = colors.bg, fg = colors.grey },
 			},
 			inactive = {
 				a = { bg = colors.bg, fg = colors.grey, gui = "bold" },
-				b = { bg = colors.bg, fg = colors.grey },
+				b = { bg = colors.bgAlt, fg = colors.grey },
 				c = { bg = colors.bg, fg = colors.grey },
 			},
 		}
@@ -44,18 +76,18 @@ return {
 		lualine.setup({
 			options = {
 				theme = my_lualine_theme,
+				component_separators = { left = "⟩", right = "⟨" },
 			},
 			sections = {
-				lualine_x = {
-					{
-						lazy_status.updates,
-						cond = lazy_status.has_updates,
-						color = { fg = "#ff9e64" },
-					},
-					{ "" },
-					{ "fileformat" },
-					{ "filetype" },
-				},
+				lualine_a = { "mode" },
+				lualine_b = { git_repo, "branch", {
+					"filename",
+					path = 4,
+				} },
+				lualine_c = { "diff", "diagnostics" },
+				lualine_x = { "filesize" },
+				lualine_y = { "filetype" },
+				lualine_z = { "location" },
 			},
 		})
 	end,
