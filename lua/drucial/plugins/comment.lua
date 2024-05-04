@@ -1,3 +1,14 @@
+-- Comment plugin configurations
+-- This snippet configures the Comment plugin to work with nvim-ts-context-commentstring.
+--
+-- Keymaps:
+--   - gcc: Comment/uncomment lines
+--   - gc: Comment/uncomment lines in visual mode
+--   - gcb: Comment/uncomment block of code
+--   - gcip: Comment/uncomment paragraph
+--   - gco: New-line comment below
+--   - gcO: New-line comment above
+
 return {
   "numToStr/Comment.nvim",
   event = { "BufReadPre", "BufNewFile" },
@@ -5,16 +16,12 @@ return {
     "JoosepAlviste/nvim-ts-context-commentstring",
   },
   config = function()
-    -- import comment plugin safely
     local comment = require("Comment")
-
     local ts_context_commentstring = require("ts_context_commentstring.integrations.comment_nvim")
 
-    -- enable comment
     comment.setup({
-      -- for commenting tsx, jsx, svelte, html files
+      -- For commenting tsx, jsx, svelte, html files
       pre_hook = ts_context_commentstring.create_pre_hook(),
     })
   end,
 }
-
