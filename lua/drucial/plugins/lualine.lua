@@ -13,82 +13,79 @@
 local cached_git_repo = nil
 
 local git_repo = function()
-	-- If the result is already cached, return it
-	if cached_git_repo ~= nil then
-		return cached_git_repo
-	end
+  if cached_git_repo ~= nil then
+    return cached_git_repo
+  end
 
-	-- Otherwise, calculate the repository root
-	local output = vim.fn.systemlist("git rev-parse --show-toplevel")
-	if vim.tbl_isempty(output) then
-		cached_git_repo = ""
-	else
-		cached_git_repo = vim.fn.fnamemodify(output[1], ":t")
-	end
+  local output = vim.fn.systemlist("git rev-parse --show-toplevel")
+  if vim.tbl_isempty(output) then
+    cached_git_repo = ""
+  else
+    cached_git_repo = vim.fn.fnamemodify(output[1], ":t")
+  end
 
-	-- Return the result
-	return cached_git_repo
+  return cached_git_repo
 end
 
 return {
-	"nvim-lualine/lualine.nvim",
-	dependencies = { "nvim-tree/nvim-web-devicons" },
-	config = function()
-		local lualine = require("lualine")
-		local lazy_status = require("lazy.status") -- to configure lazy pending updates count
-		local colorscheme = require("drucial/plugins/colorscheme")
-		local colors = colorscheme.colors
+  "nvim-lualine/lualine.nvim",
+  dependencies = { "nvim-tree/nvim-web-devicons" },
+  config = function()
+    local lualine = require("lualine")
+    local lazy_status = require("lazy.status") -- to configure lazy pending updates count
+    local colorscheme = require("drucial/plugins/colorscheme")
+    local colors = colorscheme.colors
 
-		local my_lualine_theme = {
-			normal = {
-				a = { bg = colors.cyan, fg = colors.bg, gui = "bold" },
-				b = { bg = colors.bgAlt, fg = colors.grey },
-				c = { bg = colors.bg, fg = colors.grey },
-			},
-			insert = {
-				a = { bg = colors.green, fg = colors.bg, gui = "bold" },
-				b = { bg = colors.bgAlt, fg = colors.grey },
-				c = { bg = colors.bg, fg = colors.grey },
-			},
-			visual = {
-				a = { bg = colors.pink, fg = colors.bg, gui = "bold" },
-				b = { bg = colors.bgAlt, fg = colors.grey },
-				c = { bg = colors.bg, fg = colors.grey },
-			},
-			command = {
-				a = { bg = colors.pink, fg = colors.bg, gui = "bold" },
-				b = { bg = colors.bgAlt, fg = colors.grey },
-				c = { bg = colors.bg, fg = colors.grey },
-			},
-			replace = {
-				a = { bg = colors.red, fg = colors.bg, gui = "bold" },
-				b = { bg = colors.bgAlt, fg = colors.grey },
-				c = { bg = colors.bg, fg = colors.grey },
-			},
-			inactive = {
-				a = { bg = colors.bg, fg = colors.grey, gui = "bold" },
-				b = { bg = colors.bgAlt, fg = colors.grey },
-				c = { bg = colors.bg, fg = colors.grey },
-			},
-		}
+    local my_lualine_theme = {
+      normal = {
+        a = { bg = colors.cyan, fg = colors.bg, gui = "bold" },
+        b = { bg = colors.bgAlt, fg = colors.grey },
+        c = { bg = colors.bg, fg = colors.grey },
+      },
+      insert = {
+        a = { bg = colors.green, fg = colors.bg, gui = "bold" },
+        b = { bg = colors.bgAlt, fg = colors.grey },
+        c = { bg = colors.bg, fg = colors.grey },
+      },
+      visual = {
+        a = { bg = colors.pink, fg = colors.bg, gui = "bold" },
+        b = { bg = colors.bgAlt, fg = colors.grey },
+        c = { bg = colors.bg, fg = colors.grey },
+      },
+      command = {
+        a = { bg = colors.pink, fg = colors.bg, gui = "bold" },
+        b = { bg = colors.bgAlt, fg = colors.grey },
+        c = { bg = colors.bg, fg = colors.grey },
+      },
+      replace = {
+        a = { bg = colors.red, fg = colors.bg, gui = "bold" },
+        b = { bg = colors.bgAlt, fg = colors.grey },
+        c = { bg = colors.bg, fg = colors.grey },
+      },
+      inactive = {
+        a = { bg = colors.bg, fg = colors.grey, gui = "bold" },
+        b = { bg = colors.bgAlt, fg = colors.grey },
+        c = { bg = colors.bg, fg = colors.grey },
+      },
+    }
 
-		-- configure lualine with modified theme
-		lualine.setup({
-			options = {
-				theme = my_lualine_theme,
-				component_separators = { left = "⟩", right = "⟨" },
-			},
-			sections = {
-				lualine_a = { "mode" },
-				lualine_b = { git_repo, "branch", {
-					"filename",
-					path = 4,
-				} },
-				lualine_c = { "diff", "diagnostics" },
-				lualine_x = { "filesize" },
-				lualine_y = { "filetype" },
-				lualine_z = { "location" },
-			},
-		})
-	end,
+    -- configure lualine with modified theme
+    lualine.setup({
+      options = {
+        theme = my_lualine_theme,
+        component_separators = { left = "⟩", right = "⟨" },
+      },
+      sections = {
+        lualine_a = { "mode" },
+        lualine_b = { git_repo, "branch", {
+          "filename",
+          path = 4,
+        } },
+        lualine_c = { "diff", "diagnostics" },
+        lualine_x = { "filesize" },
+        lualine_y = { "filetype" },
+        lualine_z = { "location" },
+      },
+    })
+  end,
 }
