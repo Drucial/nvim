@@ -27,10 +27,16 @@ return {
 					name = "Comments",
 				},
 				["h"] = {
-					name = "GitSigns",
+					name = "Gitsigns",
 				},
 				["l"] = {
 					name = "LazyGit",
+				},
+				["r"] = {
+					name = "Server",
+				},
+				["s"] = {
+					name = "Splits",
 				},
 				["w"] = {
 					name = "Sessions",

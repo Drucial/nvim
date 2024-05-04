@@ -76,32 +76,17 @@ return {
 				":lua vim.diagnostic.open_float(nil, {focus=true, scope='line'})<CR>",
 				{ silent = true }
 			)
-			vim.keymap.set("n", "<leader>rs", ":LspRestart<CR>", { silent = true, description = "Restart LSP servers" })
-			vim.keymap.set(
-				"n",
-				"gR",
-				"<cmd>Telescope lsp_references<CR>",
-				{ silent = true, description = "Find references" }
-			)
-			vim.keymap.set("n", "gD", vim.lsp.buf.declaration, { silent = true, description = "Go to declaration" })
+			vim.keymap.set("n", "<leader>rs", ":LspRestart<CR>", { silent = true, desc = "Restart LSP servers" })
+			vim.keymap.set("n", "gR", "<cmd>Telescope lsp_references<CR>", { silent = true, desc = "Find references" })
+			vim.keymap.set("n", "gD", vim.lsp.buf.declaration, { silent = true, desc = "Go to declaration" })
 			vim.keymap.set(
 				"n",
 				"gd",
 				"<cmd>Telescope lsp_definitions<CR>",
-				{ silent = true, description = "Go to definition" }
+				{ silent = true, desc = "Go to definition" }
 			)
-			vim.keymap.set(
-				"n",
-				"<leader>ci",
-				vim.lsp.buf.hover,
-				{ silent = true, description = "Show hover information" }
-			)
-			vim.keymap.set(
-				"n",
-				"<leader>ca",
-				vim.lsp.buf.code_action,
-				{ silent = true, description = "Trigger code actions" }
-			)
+			vim.keymap.set("n", "<leader>ci", vim.lsp.buf.hover, { silent = true, desc = "Show hover information" })
+			vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, { silent = true, desc = "Trigger code actions" })
 		end,
 	},
 }
