@@ -39,32 +39,32 @@ return {
       normal = {
         a = { bg = colors.cyan, fg = colors.bg, gui = "bold" },
         b = { bg = colors.bgAlt, fg = colors.grey },
-        c = { bg = colors.bg, fg = colors.grey },
+        c = { bg = colors.bgTransparent, fg = colors.grey },
       },
       insert = {
         a = { bg = colors.green, fg = colors.bg, gui = "bold" },
         b = { bg = colors.bgAlt, fg = colors.grey },
-        c = { bg = colors.bg, fg = colors.grey },
+        c = { bg = colors.bgTransparent, fg = colors.grey },
       },
       visual = {
         a = { bg = colors.pink, fg = colors.bg, gui = "bold" },
         b = { bg = colors.bgAlt, fg = colors.grey },
-        c = { bg = colors.bg, fg = colors.grey },
+        c = { bg = colors.bgTransparent, fg = colors.grey },
       },
       command = {
         a = { bg = colors.pink, fg = colors.bg, gui = "bold" },
         b = { bg = colors.bgAlt, fg = colors.grey },
-        c = { bg = colors.bg, fg = colors.grey },
+        c = { bg = colors.bgTransparent, fg = colors.grey },
       },
       replace = {
         a = { bg = colors.red, fg = colors.bg, gui = "bold" },
         b = { bg = colors.bgAlt, fg = colors.grey },
-        c = { bg = colors.bg, fg = colors.grey },
+        c = { bg = colors.bgTransparent, fg = colors.grey },
       },
       inactive = {
-        a = { bg = colors.bg, fg = colors.grey, gui = "bold" },
-        b = { bg = colors.bgAlt, fg = colors.grey },
-        c = { bg = colors.bg, fg = colors.grey },
+        a = { bg = colors.bgTransparent, fg = colors.grey },
+        b = { bg = colors.bgTransparent, fg = colors.grey },
+        c = { bg = colors.bgTransparent, fg = colors.grey },
       },
     }
 
@@ -73,6 +73,7 @@ return {
       options = {
         theme = my_lualine_theme,
         component_separators = { left = "⟩", right = "⟨" },
+        disabled_filetypes = { "NvimTree", "alpha" },
       },
       sections = {
         lualine_a = { "mode" },

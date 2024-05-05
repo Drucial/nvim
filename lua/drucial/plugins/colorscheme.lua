@@ -11,6 +11,7 @@
 local colors = {
 	bg = "#030517",
 	bgAlt = "#1e2124",
+	bgTransparent = "#030517" .. "00",
 	bgHighlight = "#3c4048",
 	cursor = "#EDF2F6",
 	fg = "#FFFFFF",
@@ -28,6 +29,10 @@ local colors = {
 
 local highlights = {
 	GitSignsCurrentLineBlame = { fg = colors.grey },
+	NormalFloat = { bg = colors.bg },
+	FloatBorder = { bg = colors.bg, fg = colors.grey },
+	LazyGitFloat = { bg = colors.bg },
+	LazyGitBorder = { fg = colors.grey },
 }
 
 return {
@@ -42,15 +47,14 @@ return {
 			terminal_colors = true,
 			theme = { colors = colors },
 		})
+		-- Set the colorscheme
+		vim.cmd("colorscheme cyberdream")
 
 		-- Apply highlight customizations
 		for group, attrs in pairs(highlights) do
 			local namespace = attrs.ns or 0
 			vim.api.nvim_set_hl(namespace, group, attrs)
 		end
-
-		-- Set the colorscheme
-		vim.cmd("colorscheme cyberdream")
 	end,
 	colors = colors,
 }
