@@ -36,13 +36,13 @@
 --     Example: Select "this text", press <leader>tstt -> <t>this text</t>
 
 return {
-  "kylechui/nvim-surround",
-  event = { "BufReadPre", "BufNewFile" },
-  version = "*", -- Use for stability; omit to use `main` branch for the latest features
-  config = function()
-    require("nvim-surround").setup()
+	"kylechui/nvim-surround",
+	event = { "BufReadPre", "BufNewFile" },
+	version = "*", -- Use for stability; omit to use `main` branch for the latest features
+	config = function()
+		require("nvim-surround").setup()
 
-    vim.cmd([[
+		vim.cmd([[
       nmap <leader>tw ysiw
       nmap <leader>tl yss
       nmap <leader>ts ys$
@@ -54,21 +54,21 @@ return {
       vmap <leader>tst St
     ]])
 
-    -- Setup which-key descriptions
-    local wk = require("which-key")
-    wk.register({
-      ["t"] = {
-        name = "+Surround", -- Group name for all surround-related mappings
-        w = "Wrap word in specified character",
-        l = "Surround entire line with specified character",
-        s = "Surround to line end with specified character",
-        d = "Delete surrounding characters/tags",
-        q = "Change surrounding characters/tags",
-        t = "Change surrounding tag/type",
-        lt = "Surround entire line tightly with specified character",
-        pt = "Surround paragraph with tag and indent",
-        st = "Surround selection with specified tag in visual mode",
-      },
-    }, { prefix = "<leader>" })
-  end,
+		-- Setup which-key descriptions
+		local wk = require("which-key")
+		wk.register({
+			["t"] = {
+				name = "+Surround", -- Group name for all surround-related mappings
+				w = "Wrap word in specified character",
+				l = "Surround entire line with specified character",
+				s = "Surround to line end with specified character",
+				d = "Delete surrounding characters/tags",
+				q = "Change surrounding characters/tags",
+				t = "Change surrounding tag/type",
+				lt = "Surround entire line tightly with specified character",
+				pt = "Surround paragraph with tag and indent",
+				st = "Surround selection with specified tag in visual mode",
+			},
+		}, { prefix = "<leader>" })
+	end,
 }
