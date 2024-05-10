@@ -24,22 +24,25 @@ return {
 				null_ls.builtins.formatting.rubocop,
 				null_ls.builtins.formatting.prettier,
 				null_ls.builtins.diagnostics.rubocop,
-				-- null_ls.builtins.formatting.erb_lint,
+				null_ls.builtins.formatting.erb_lint,
 			},
 			on_attach = function(client, bufnr)
 				if client.supports_method("textDocument/formatting") then
 					vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
-					vim.api.nvim_create_autocmd("BufWritePre", {
-						group = augroup,
-						buffer = bufnr,
-						callback = function()
-							vim.lsp.buf.format({ async = false, bufnr = bufnr })
-						end,
-					})
+
+					-- Uncomment to format on write
+
+					-- vim.api.nvim_create_autocmd("BufWritePre", {
+					-- 	group = augroup,
+					-- 	buffer = bufnr,
+					-- 	callback = function()
+					-- 		vim.lsp.buf.format({ async = false, bufnr = bufnr })
+					-- 	end,
+					-- })
 				end
 			end,
 		})
 
-		vim.keymap.set("n", "<leader>gf", vim.lsp.buf.format, {})
+		vim.keymap.set("n", "<leader>gf", vim.lsp.buf.format, { desc = "Format buffer" })
 	end,
 }

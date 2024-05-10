@@ -36,10 +36,10 @@ return {
 					name = "Server",
 				},
 				["s"] = {
-					name = "Splits",
+					name = "Splits/Session",
 				},
 				["w"] = {
-					name = "Sessions",
+					name = "Session",
 				},
 				["x"] = {
 					name = "Trouble",

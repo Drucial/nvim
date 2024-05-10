@@ -22,3 +22,6 @@ keymap.set("n", "<leader>sx", "<cmd>close<CR>", { desc = "Close current split" }
 -- Session management
 keymap.set("n", "<leader>wr", "<cmd>SessionRestore<CR>", { desc = "Restore session for cwd" })
 keymap.set("n", "<leader>ws", "<cmd>SessionSave<CR>", { desc = "Save session for cwd" })
+
+-- Lua development
+keymap.set("n", "<leader>rl", ":luafile %<CR>", { desc = "Source current Lua file" })

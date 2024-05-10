@@ -9,7 +9,6 @@ return {
 	"rmagatti/auto-session",
 	config = function()
 		local auto_session = require("auto-session")
-		local keymap = vim.keymap
 
 		auto_session.setup({
 			auto_restore_enabled = false,
