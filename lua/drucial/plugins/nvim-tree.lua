@@ -3,9 +3,9 @@
 -- sidebar for Neovim.
 
 -- Keymaps:
---   - <leader>ee: Toggle file explorer
+--   - <C-n>: Toggle file explorer
 --   - <leader>ef: Toggle file explorer on current file
---   - <leader>ec: Collapse file explorer
+--   - <leader>ex: Collapse file explorer
 --   - <leader>er: Refresh file explorer
 
 return {
@@ -17,20 +17,29 @@ return {
 		vim.g.loaded_netrw = 1
 		vim.g.loaded_netrwPlugin = 1
 
-		local function root_folder_label(root_cwd)
+		local function generate_root_folder_label(root_cwd)
 			local icon = "" -- Folder icon
 			local folder_name = vim.fn.fnamemodify(root_cwd, ":t")
 			local capitalized_folder_name = folder_name:sub(1, 1):upper() .. folder_name:sub(2)
-			local full_label = icon .. " " .. capitalized_folder_name
+			return icon .. " " .. capitalized_folder_name
+		end
 
-			-- Get the current width of the nvim-tree window
+		local function center_root_folder_label(root_cwd)
+			local full_label = generate_root_folder_label(root_cwd)
 			local tree_width = vim.api.nvim_win_get_width(0)
 			local label_length = #full_label
 			local padding = math.floor((tree_width - label_length) / 2)
 			local spaces = string.rep(" ", math.max(0, padding))
-
 			return spaces .. full_label
 		end
+
+		local nvim_tree_api = require("nvim-tree.api")
+
+		-- -- Subscribe to Resize events
+		nvim_tree_api.events.subscribe(nvim_tree_api.events.Event.Resize, function()
+      local cwd = vim.fn.getcwd()
+      center_root_folder_label(cwd)
+		end)
 
 		-- Update diagnostic highlight settings in NvimTree
 		vim.cmd([[
@@ -84,7 +93,7 @@ return {
 				highlight_diagnostics = "all",
 				highlight_opened_files = "all",
 				highlight_modified = "all",
-				root_folder_label = root_folder_label,
+				root_folder_label = center_root_folder_label,
 				icons = {
 					diagnostics_placement = "after",
 					git_placement = "after",
@@ -136,9 +145,19 @@ return {
 
 		local keymap = vim.keymap -- for conciseness
 
-		keymap.set("n", "<C-n>", "<cmd>NvimTreeToggle<CR>", { desc = "Toggle file explorer" })
-		keymap.set("n", "<C-n>f", "<cmd>NvimTreeFindFileToggle<CR>", { desc = "Toggle file explorer on current file" })
-		keymap.set("n", "<C-n>x", "<cmd>NvimTreeCollapse<CR>", { desc = "Collapse file explorer" })
-		keymap.set("n", "<C-n>r", "<cmd>NvimTreeRefresh<CR>", { desc = "Refresh file explorer" })
+		keymap.set("n", "<C-n>", "<cmd>NvimTreeToggle<CR>", {})
+		keymap.set("n", "<leader>ef", "<cmd>NvimTreeFindFileToggle<CR>", {})
+		keymap.set("n", "<leader>ex", "<cmd>NvimTreeCollapse<CR>", {})
+		keymap.set("n", "<leader>er", "<cmd>NvimTreeRefresh<CR>", {})
+
+		local wk = require("which-key")
+		wk.register({
+			["e"] = {
+				name = "+NvimTree",
+				f = { "<cmd>NvimTreeFindFile<CR>", "Open explorer on file" },
+				x = { "<cmd>NvimTreeCollapse<CR>", "Collapse explorer" },
+				r = { "<cmd>NvimTreeRefresh<CR>", "Refresh explorer" },
+			},
+		}, { prefix = "<leader>" })
 	end,
 }
