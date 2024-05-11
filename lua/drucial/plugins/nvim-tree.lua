@@ -33,13 +33,13 @@ return {
 			return spaces .. full_label
 		end
 
-		local nvim_tree_api = require("nvim-tree.api")
+		-- local nvim_tree_api = require("nvim-tree.api")
 
 		-- -- Subscribe to Resize events
-		nvim_tree_api.events.subscribe(nvim_tree_api.events.Event.Resize, function()
-      local cwd = vim.fn.getcwd()
-      center_root_folder_label(cwd)
-		end)
+		-- nvim_tree_api.events.subscribe(nvim_tree_api.events.Event.Resize, function()
+  --     local cwd = vim.fn.getcwd()
+  --     center_root_folder_label(cwd)
+		-- end)
 
 		-- Update diagnostic highlight settings in NvimTree
 		vim.cmd([[
