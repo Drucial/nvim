@@ -48,10 +48,8 @@ return {
 			borderless_telescope = false,
 			terminal_colors = true,
 			theme = {
-        Cursor = { fg = colors.cursor, bg = colors.bg },
-        lCursor = { fg = colors.cursor, bg = colors.bg },
-        colors = colors 
-      },
+				colors = colors,
+			},
 		})
 		-- Set the colorscheme
 		vim.cmd("colorscheme cyberdream")

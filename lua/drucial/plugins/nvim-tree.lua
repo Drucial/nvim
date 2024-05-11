@@ -20,6 +20,15 @@ local function root_folder_label(root_cwd)
   return icon .. " " .. capitalized_folder_name
 end
 
+local function start_cursor_on_second_line()
+  vim.defer_fn(function()
+    local bufname = vim.fn.bufname()
+    if string.find(bufname, "NvimTree_") then
+      vim.api.nvim_win_set_cursor(0, { 2, 0 })
+    end
+  end, 100)
+end
+
 return {
   "nvim-tree/nvim-tree.lua",
   dependencies = "nvim-tree/nvim-web-devicons",
@@ -33,15 +42,7 @@ return {
     local Event = nvim_tree_api.events.Event
 
     nvim_tree_api.events.subscribe(Event.TreeOpen, function()
-      -- Delay the cursor movement slightly to ensure the tree is fully loaded
-      vim.defer_fn(function()
-        -- Check if the current buffer is an nvim-tree buffer
-        local bufname = vim.fn.bufname()
-        if string.find(bufname, "NvimTree_") then
-          -- Set the cursor to the second line
-          vim.api.nvim_win_set_cursor(0, { 2, 0 }) -- Window handle, {line, column}
-        end
-      end, 100)                               -- Delay in milliseconds
+      start_cursor_on_second_line()
     end)
 
     -- Update diagnostic highlight settings in NvimTree
