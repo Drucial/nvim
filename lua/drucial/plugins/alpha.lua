@@ -82,6 +82,7 @@ return {
 
 	-- Lazy configuration
 	config = function(_, dashboard)
+    local lazy = require("lazy")
 		-- close Lazy and re-open when the dashboard is ready
 		if vim.o.filetype == "lazy" then
 			vim.cmd.close()
@@ -89,7 +90,7 @@ return {
 				once = true,
 				pattern = "AlphaReady",
 				callback = function()
-					require("lazy").show()
+					lazy.show()
 				end,
 			})
 		end
@@ -101,7 +102,7 @@ return {
 			once = true,
 			pattern = "LazyVimStarted",
 			callback = function()
-				local stats = require("lazy").stats()
+				local stats = lazy.stats()
 				local ms = (math.floor(stats.startuptime * 100 + 0.5) / 100)
 				dashboard.section.footer.val = "⚡ Neovim loaded "
 					.. stats.loaded
