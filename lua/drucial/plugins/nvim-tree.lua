@@ -45,28 +45,6 @@ return {
       start_cursor_on_second_line()
     end)
 
-    -- Update diagnostic highlight settings in NvimTree
-    vim.cmd([[
-      highlight NvimTreeRootFolder guifg=#c0fe3d
-      highlight NvimTreeGitStagedIcon guifg=#c0fe3d
-      highlight NvimCursorLine guifg=#ffffff
-
-      highlight NvimTreeDiagnosticErrorIcon guifg=#ff4e4e
-      highlight NvimTreeDiagnosticWarnIcon guifg=#feec4b
-      highlight NvimTreeDiagnosticInfoIcon guifg=#00c2ff
-      highlight NvimTreeDiagnosticHintIcon guifg=#69fee3
-
-      highlight NvimTreeDiagnosticErrorFileHL guifg=#ff4e4e gui=none
-      highlight NvimTreeDiagnosticWarnFileHL guifg=#feec4b gui=none
-      highlight NvimTreeDiagnosticInfoFileHL guifg=#00c2ff gui=none
-      highlight NvimTreeDiagnosticHintFileHL guifg=#69fee3 gui=none
-
-      highlight NvimTreeDiagnosticErrorFolderHL guifg=#ff4e4e gui=none
-      highlight NvimTreeDiagnosticWarnFolderHL guifg=#feec4b gui=none
-      highlight NvimTreeDiagnosticInfoFolderHL guifg=#00c2ff gui=none
-      highlight NvimTreeDiagnosticHintFolderHL guifg=#69fee3 gui=none
-    ]])
-
     nvimtree.setup({
       actions = {
         open_file = {
@@ -88,6 +66,17 @@ return {
         enable = true,
         ignore = false,
       },
+      filters = {
+        enable = true,
+        custom = {
+          "node_modules",
+          ".git",
+          ".pytest_cache",
+          ".vscode",
+          ".idea",
+          ".DS_Store",
+        },
+      },
       hijack_cursor = true,
       modified = {
         enable = true,
@@ -97,6 +86,17 @@ return {
         highlight_diagnostics = "all",
         highlight_opened_files = "all",
         highlight_modified = "all",
+        indent_markers = {
+          enable = true,
+          inline_arrows = false,
+          icons = {
+            corner = "⎩",
+            edge = "⎥",
+            item = "⎬",
+            bottom = "─",
+            none = " ",
+          },
+        },
         root_folder_label = root_folder_label,
         icons = {
           diagnostics_placement = "after",
@@ -122,7 +122,7 @@ return {
             },
             folder = {
               default = "",
-              open = "",
+              open = "",
               empty = "",
               empty_open = "",
               symlink = "",
@@ -130,7 +130,7 @@ return {
           },
           web_devicons = {
             folder = {
-              color = true,
+              color = false,
             },
           },
         },
@@ -165,3 +165,4 @@ return {
     }, { prefix = "<leader>" })
   end,
 }
+
