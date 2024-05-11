@@ -47,7 +47,11 @@ return {
 			italic_comments = true,
 			borderless_telescope = false,
 			terminal_colors = true,
-			theme = { colors = colors },
+			theme = {
+        Cursor = { fg = colors.cursor, bg = colors.bg },
+        lCursor = { fg = colors.cursor, bg = colors.bg },
+        colors = colors 
+      },
 		})
 		-- Set the colorscheme
 		vim.cmd("colorscheme cyberdream")

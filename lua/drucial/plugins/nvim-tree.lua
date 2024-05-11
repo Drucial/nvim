@@ -8,44 +8,47 @@
 --   - <leader>ex: Collapse file explorer
 --   - <leader>er: Refresh file explorer
 
+local function root_folder_label(root_cwd)
+  local icon = "" -- Folder icon
+  local folder_name = vim.fn.fnamemodify(root_cwd, ":t")
+  folder_name = folder_name:gsub("[-_]", " ")
+
+  local capitalized_folder_name = folder_name:gsub("(%a)([%w]*)", function(first, rest)
+    return first:upper() .. rest:lower()
+  end)
+
+  return icon .. " " .. capitalized_folder_name
+end
+
 return {
-	"nvim-tree/nvim-tree.lua",
-	dependencies = "nvim-tree/nvim-web-devicons",
-	config = function()
-		local nvimtree = require("nvim-tree")
+  "nvim-tree/nvim-tree.lua",
+  dependencies = "nvim-tree/nvim-web-devicons",
+  config = function()
+    local nvimtree = require("nvim-tree")
 
-		vim.g.loaded_netrw = 1
-		vim.g.loaded_netrwPlugin = 1
+    vim.g.loaded_netrw = 1
+    vim.g.loaded_netrwPlugin = 1
 
-		local function generate_root_folder_label(root_cwd)
-			local icon = "" -- Folder icon
-			local folder_name = vim.fn.fnamemodify(root_cwd, ":t")
-			local capitalized_folder_name = folder_name:sub(1, 1):upper() .. folder_name:sub(2)
-			return icon .. " " .. capitalized_folder_name
-		end
+    local nvim_tree_api = require("nvim-tree.api")
+    local Event = nvim_tree_api.events.Event
 
-		local function center_root_folder_label(root_cwd)
-			local full_label = generate_root_folder_label(root_cwd)
-			local tree_width = vim.api.nvim_win_get_width(0)
-			local label_length = #full_label
-			local padding = math.floor((tree_width - label_length) / 2)
-			local spaces = string.rep(" ", math.max(0, padding))
-			return spaces .. full_label
-		end
+    nvim_tree_api.events.subscribe(Event.TreeOpen, function()
+      -- Delay the cursor movement slightly to ensure the tree is fully loaded
+      vim.defer_fn(function()
+        -- Check if the current buffer is an nvim-tree buffer
+        local bufname = vim.fn.bufname()
+        if string.find(bufname, "NvimTree_") then
+          -- Set the cursor to the second line
+          vim.api.nvim_win_set_cursor(0, { 2, 0 }) -- Window handle, {line, column}
+        end
+      end, 100)                               -- Delay in milliseconds
+    end)
 
-		-- local nvim_tree_api = require("nvim-tree.api")
-
-		-- -- Subscribe to Resize events
-		-- nvim_tree_api.events.subscribe(nvim_tree_api.events.Event.Resize, function()
-  --     local cwd = vim.fn.getcwd()
-  --     center_root_folder_label(cwd)
-		-- end)
-
-		-- Update diagnostic highlight settings in NvimTree
-		vim.cmd([[
+    -- Update diagnostic highlight settings in NvimTree
+    vim.cmd([[
       highlight NvimTreeRootFolder guifg=#c0fe3d
       highlight NvimTreeGitStagedIcon guifg=#c0fe3d
-      highlight NvimCursorLine guifg=#1e1e1e
+      highlight NvimCursorLine guifg=#ffffff
 
       highlight NvimTreeDiagnosticErrorIcon guifg=#ff4e4e
       highlight NvimTreeDiagnosticWarnIcon guifg=#feec4b
@@ -63,101 +66,101 @@ return {
       highlight NvimTreeDiagnosticHintFolderHL guifg=#69fee3 gui=none
     ]])
 
-		nvimtree.setup({
-			actions = {
-				open_file = {
-					window_picker = {
-						enable = false,
-					},
-				},
-			},
-			diagnostics = {
-				enable = true,
-				icons = {
-					hint = "",
-					info = "",
-					warning = "",
-					error = "",
-				},
-			},
-			git = {
-				enable = true,
-				ignore = false,
-			},
-			hijack_cursor = true,
-			modified = {
-				enable = true,
-			},
-			renderer = {
-				group_empty = true,
-				highlight_diagnostics = "all",
-				highlight_opened_files = "all",
-				highlight_modified = "all",
-				root_folder_label = center_root_folder_label,
-				icons = {
-					diagnostics_placement = "after",
-					git_placement = "after",
-					padding = " ",
-					show = {
-						folder_arrow = false,
-						bookmarks = false,
-						diagnostics = false,
-						modified = false,
-					},
-					glyphs = {
-						default = "",
-						symlink = "",
-						git = {
-							unstaged = "*",
-							staged = "+",
-							unmerged = "⇡",
-							renamed = "»",
-							untracked = "?",
-							deleted = "-",
-							ignored = "◌",
-						},
-						folder = {
-							default = "",
-							open = "",
-							empty = "",
-							empty_open = "",
-							symlink = "",
-						},
-					},
-					web_devicons = {
-						folder = {
-							color = true,
-						},
-					},
-				},
-			},
-			select_prompts = true,
-			view = {
-				cursorline = true,
-				signcolumn = "no",
-				width = {
-					min = 25,
-					max = 35,
-					padding = 2,
-				},
-			},
-		})
+    nvimtree.setup({
+      actions = {
+        open_file = {
+          window_picker = {
+            enable = false,
+          },
+        },
+      },
+      diagnostics = {
+        enable = true,
+        icons = {
+          hint = "",
+          info = "",
+          warning = "",
+          error = "",
+        },
+      },
+      git = {
+        enable = true,
+        ignore = false,
+      },
+      hijack_cursor = true,
+      modified = {
+        enable = true,
+      },
+      renderer = {
+        group_empty = true,
+        highlight_diagnostics = "all",
+        highlight_opened_files = "all",
+        highlight_modified = "all",
+        root_folder_label = root_folder_label,
+        icons = {
+          diagnostics_placement = "after",
+          git_placement = "after",
+          padding = " ",
+          show = {
+            folder_arrow = false,
+            bookmarks = false,
+            diagnostics = false,
+            modified = false,
+          },
+          glyphs = {
+            default = "",
+            symlink = "",
+            git = {
+              unstaged = "*",
+              staged = "+",
+              unmerged = "⇡",
+              renamed = "»",
+              untracked = "?",
+              deleted = "-",
+              ignored = "◌",
+            },
+            folder = {
+              default = "",
+              open = "",
+              empty = "",
+              empty_open = "",
+              symlink = "",
+            },
+          },
+          web_devicons = {
+            folder = {
+              color = true,
+            },
+          },
+        },
+      },
+      select_prompts = true,
+      view = {
+        cursorline = true,
+        signcolumn = "no",
+        width = {
+          min = 25,
+          max = 35,
+          padding = 2,
+        },
+      },
+    })
 
-		local keymap = vim.keymap -- for conciseness
+    local keymap = vim.keymap -- for conciseness
 
-		keymap.set("n", "<C-n>", "<cmd>NvimTreeToggle<CR>", {})
-		keymap.set("n", "<leader>ef", "<cmd>NvimTreeFindFileToggle<CR>", {})
-		keymap.set("n", "<leader>ex", "<cmd>NvimTreeCollapse<CR>", {})
-		keymap.set("n", "<leader>er", "<cmd>NvimTreeRefresh<CR>", {})
+    keymap.set("n", "<C-n>", "<cmd>NvimTreeToggle<CR>", {})
+    keymap.set("n", "<leader>ef", "<cmd>NvimTreeFindFileToggle<CR>", {})
+    keymap.set("n", "<leader>ex", "<cmd>NvimTreeCollapse<CR>", {})
+    keymap.set("n", "<leader>er", "<cmd>NvimTreeRefresh<CR>", {})
 
-		local wk = require("which-key")
-		wk.register({
-			["e"] = {
-				name = "+NvimTree",
-				f = { "<cmd>NvimTreeFindFile<CR>", "Open explorer on file" },
-				x = { "<cmd>NvimTreeCollapse<CR>", "Collapse explorer" },
-				r = { "<cmd>NvimTreeRefresh<CR>", "Refresh explorer" },
-			},
-		}, { prefix = "<leader>" })
-	end,
+    local wk = require("which-key")
+    wk.register({
+      ["e"] = {
+        name = "+NvimTree",
+        f = { "<cmd>NvimTreeFindFile<CR>", "Open explorer on file" },
+        x = { "<cmd>NvimTreeCollapse<CR>", "Collapse explorer" },
+        r = { "<cmd>NvimTreeRefresh<CR>", "Refresh explorer" },
+      },
+    }, { prefix = "<leader>" })
+  end,
 }
