@@ -44,7 +44,7 @@ local highlights = {
   TelescopeBorder = { bg = colors.bg, fg = colors.grey },
 
   -- nvim-tree
-  NvimTreeRootFolder = { fg = colors.magenta },
+  NvimTreeRootFolder = { fg = colors.green },
   NvimTreeGitStagedIcon = { fg = colors.green },
   NvimTreeIndentMarker = { fg = colors.grey },
 
