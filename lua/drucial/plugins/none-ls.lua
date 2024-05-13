@@ -29,20 +29,15 @@ return {
 			on_attach = function(client, bufnr)
 				if client.supports_method("textDocument/formatting") then
 					vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
-
-					-- Uncomment to format on write
-
-					-- vim.api.nvim_create_autocmd("BufWritePre", {
-					-- 	group = augroup,
-					-- 	buffer = bufnr,
-					-- 	callback = function()
-					-- 		vim.lsp.buf.format({ async = false, bufnr = bufnr })
-					-- 	end,
-					-- })
 				end
 			end,
 		})
 
-		vim.keymap.set("n", "<leader>gf", vim.lsp.buf.format, { desc = "Format buffer" })
+    local wk = require("which-key")
+    wk.register({
+      ["c"] = {
+        f = { "<cmd>lua vim.lsp.buf.formatting()<CR>", "Format buffer" },
+      }
+    })
 	end,
 }

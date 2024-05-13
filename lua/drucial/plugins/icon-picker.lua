@@ -3,10 +3,13 @@ return {
   config = function()
     require("icon-picker").setup({ disable_legacy_commands = true })
 
-    local opts = { noremap = true, silent = true }
+    local wk = require("which-key")
+    wk.register({
+      ["i"] ={ "<cmd>IconPicker<cr>", "Icon Picker" },
+    }, { prefix = "<leader>" })
 
-    vim.keymap.set("n", "<Leader><leader>i", "<cmd>IconPickerNormal<cr>", opts)
-    vim.keymap.set("n", "<Leader><leader>y", "<cmd>IconPickerYank<cr>", opts) --> Yank the selected icon into register
-    vim.keymap.set("i", "<C-e>", "<cmd>IconPickerInsert<cr>", opts)
+    wk.register({
+      ["<C-e>"] = { "<cmd>IconPickerInsert<cr>", "Insert Icon" },
+    }, { mode = "i" })
   end,
 }

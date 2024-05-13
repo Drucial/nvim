@@ -2,10 +2,6 @@
 -- This configuration sets up the nvim-surround plugin, which provides intuitive
 -- mappings to quickly add, change, and delete surroundings in your code.
 
--- Plugin Functionality:
---   - Add, change, and delete surroundings such as parentheses, brackets, quotes, etc.
---   - Supports various types of surroundings, including single and double quotes, parentheses, brackets, etc.
-
 -- Keymaps:
 --   - <leader>tw: Surround word with a tag
 --     Example: surround*ing -> <leader>twp -> <p>surrounding</p>
@@ -41,11 +37,11 @@ return {
 	version = "*", -- Use for stability; omit to use `main` branch for the latest features
 	config = function()
 		require("nvim-surround").setup()
-
 		vim.cmd([[
       nmap <leader>tw ysiw
       nmap <leader>tl yss
       nmap <leader>ts ys$
+      nmap <leader>tp ysip
       nmap <leader>td ds
       nmap <leader>tq cs
       nmap <leader>tt cst
@@ -54,21 +50,29 @@ return {
       vmap <leader>tst St
     ]])
 
-		-- Setup which-key descriptions
 		local wk = require("which-key")
 		wk.register({
 			["t"] = {
-				name = "+Surround", -- Group name for all surround-related mappings
+				name = "+ Surround",
 				w = "Wrap word in specified character",
 				l = "Surround entire line with specified character",
 				s = "Surround to line end with specified character",
+        p = "Surround paragraph with character",
 				d = "Delete surrounding characters/tags",
 				q = "Change surrounding characters/tags",
 				t = "Change surrounding tag/type",
-				lt = "Surround entire line tightly with specified character",
-				pt = "Surround paragraph with tag and indent",
-				st = "Surround selection with specified tag in visual mode",
+        ["lt"] = "Surround entire line tightly with specified tag",
+				["pt"] = "Surround paragraph with tag and indent",
 			},
 		}, { prefix = "<leader>" })
+
+    wk.register({
+      ["t"] = {
+        ["s"] = {
+          name = "+ Selection",
+          t = { "Surround selection with tag" },
+        },
+      }
+    }, { prefix = "<leader>", mode = "v" })
 	end,
 }

@@ -41,17 +41,16 @@ return {
 
 		telescope.load_extension("fzf")
 
-		local keymap = vim.keymap -- for conciseness
-
-		keymap.set("n", "<leader>ff", "<cmd>Telescope find_files<cr>", { desc = "Fuzzy find files in cwd" })
-		keymap.set("n", "<leader>fr", "<cmd>Telescope oldfiles<cr>", { desc = "Fuzzy find recent files" })
-		keymap.set("n", "<leader>fs", "<cmd>Telescope live_grep<cr>", { desc = "Find string in cwd" })
-		keymap.set("n", "<leader>fc", "<cmd>Telescope grep_string<cr>", { desc = "Find string under cursor in cwd" })
-		keymap.set(
-			"n",
-			"<leader>fsb",
-			"<cmd>Telescope current_buffer_fuzzy_find<cr>",
-			{ desc = "Find string in buffer" }
-		)
+    local wk = require("which-key")
+    wk.register({
+        ["f"] = {
+          name = "+ Find",
+          f = { "<cmd>Telescope find_files<cr>", "Find files in cwd" },
+          r = { "<cmd>Telescope oldfiles<cr>", "Find recent files" },
+          s = { "<cmd>Telescope live_grep<cr>", "Find string in cwd" },
+          c = { "<cmd>Telescope grep_string<cr>", "Find string under cursor in cwd" },
+          b = { "<cmd>Telescope current_buffer_fuzzy_find<cr>", "Find string in buffer" },
+        },
+    }, { prefix = "<leader>" })
 	end,
 }

@@ -14,5 +14,14 @@ return {
 			auto_restore_enabled = false,
 			auto_session_suppress_dirs = { "~/", "~/Dev/", "~/Downloads", "~/Documents", "~/Desktop/" },
 		})
+
+    local wk = require("which-key")
+    wk.register({
+      ["w"] = {
+        name = "+ Workspace",
+        r = { "<cmd>SessionRestore<CR>", "Restore last session" },
+        s = { "<cmd>SessionSave<CR>", "Save session" },
+      },
+    }, { prefix = "<leader>"})
 	end,
 }

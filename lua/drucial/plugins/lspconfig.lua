@@ -70,23 +70,35 @@ return {
 				end,
 			})
 
-			vim.keymap.set(
-				"n",
-				"<leader>d",
-				":lua vim.diagnostic.open_float(nil, {focus=true, scope='line'})<CR>",
-				{ silent = true }
-			)
-			vim.keymap.set("n", "<leader>rs", ":LspRestart<CR>", { silent = true, desc = "Restart LSP servers" })
-			vim.keymap.set("n", "gR", "<cmd>Telescope lsp_references<CR>", { silent = true, desc = "Find references" })
-			vim.keymap.set("n", "gD", vim.lsp.buf.declaration, { silent = true, desc = "Go to declaration" })
-			vim.keymap.set(
-				"n",
-				"gd",
-				"<cmd>Telescope lsp_definitions<CR>",
-				{ silent = true, desc = "Go to definition" }
-			)
-			vim.keymap.set("n", "<leader>ci", vim.lsp.buf.hover, { silent = true, desc = "Show hover information" })
-			vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, { silent = true, desc = "Trigger code actions" })
+      local wk = require("which-key")
+      wk.register({
+        ["c"] = {
+          a = { vim.lsp.buf.code_action, "Code actions" },
+          d = { "<cmd>Telescope lsp_definitions<CR>", "Go to definition" },
+          D = { vim.lsp.buf.declaration, "Go to declaration" },
+          i = { vim.lsp.buf.hover, "Show hover info" },
+          I = { "<cmd>lua vim.diagnostic.open_float(nil, {focus=true, scope='line'})<CR>", "Show diagnostics" },
+          R = { "<cmd>Telescope lsp_references<CR>", "Find references" },
+          s = { "<cmd>LspRestart<CR>", "Restart LSP servers" }, 
+        }
+      }, { prefix = "<leader>" })
+			-- vim.keymap.set(
+			-- 	"n",
+			-- 	"<leader>d",
+			-- 	":lua vim.diagnostic.open_float(nil, {focus=true, scope='line'})<CR>",
+			-- 	{ silent = true }
+			-- )
+			-- vim.keymap.set("n", "<leader>rs", ":LspRestart<CR>", { silent = true, desc = "Restart LSP servers" })
+			-- vim.keymap.set("n", "gR", "<cmd>Telescope lsp_references<CR>", { silent = true, desc = "Find references" })
+			-- vim.keymap.set("n", "gD", vim.lsp.buf.declaration, { silent = true, desc = "Go to declaration" })
+			-- vim.keymap.set(
+			-- 	"n",
+			-- 	"gd",
+			-- 	"<cmd>Telescope lsp_definitions<CR>",
+			-- 	{ silent = true, desc = "Go to definition" }
+			-- )
+			-- vim.keymap.set("n", "<leader>ci", vim.lsp.buf.hover, { silent = true, desc = "Show hover information" })
+			-- vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, { silent = true, desc = "Trigger code actions" })
 		end,
 	},
 }
