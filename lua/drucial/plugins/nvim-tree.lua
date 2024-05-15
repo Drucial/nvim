@@ -2,12 +2,6 @@
 -- This configuration sets up the nvim-tree.lua plugin, which provides a file explorer
 -- sidebar for Neovim.
 
--- Keymaps:
---   - <C-n>: Toggle file explorer
---   - <leader>ef: Toggle file explorer on current file
---   - <leader>ex: Collapse file explorer
---   - <leader>er: Refresh file explorer
-
 local function root_folder_label(root_cwd)
 	local icon = "" -- Folder icon
 	local folder_name = vim.fn.fnamemodify(root_cwd, ":t")

@@ -12,7 +12,7 @@ local colors = {
   bg = "#030517",
   bgAlt = "#1e2124",
   bgTransparent = "#030517" .. "00",
-  bgHighlight = "#3c4048",
+  bgHighlight = "#283037",
   cursor = "#EDF2F6",
   fg = "#FFFFFF",
   grey = "#8894AD",
@@ -31,6 +31,10 @@ local highlights = {
   -- Global
   NormalFloat = { bg = colors.bg },
   FloatBorder = { bg = colors.bg, fg = colors.grey },
+  Substitute = { bg= colors.bgHighlight, fg = colors.yellow },
+  IncSearch = { bg = colors.bgHighlight, fg = colors.magenta },
+  Search = { bg = colors.bgHighlight, fg = colors.magenta },
+  CurSearch = { bg = colors.magenta, fg = colors.bgHighlight },
 
   -- LazyGit
   LazyGitFloat = { bg = colors.bg },
@@ -47,6 +51,9 @@ local highlights = {
   NvimTreeRootFolder = { fg = colors.green },
   NvimTreeGitStagedIcon = { fg = colors.green },
   NvimTreeIndentMarker = { fg = colors.grey },
+  NvimTreeModifiedIcon = { fg=colors.yellow },
+  NvimTreeModifiedFileHL = { fg=colors.yellow },
+  NvimTreeModifiedFolderHL = { fg=colors.yellow },
 
   NvimTreeDiagnosticErrorIcon = { fg = colors.red },
   NvimTreeDiagnosticWarnIcon = { fg = colors.yellow },

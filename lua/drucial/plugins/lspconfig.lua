@@ -6,18 +6,6 @@
 -- These plugins provide enhanced support for Mason files and integrate with nvim-lspconfig
 -- to configure language servers.
 
--- Keymaps:
---   - <leader>d: Open diagnostic float window for current line
---   - <leader>rs: Restart LSP servers
---   - gR: Open references in Telescope
---   - gD: Go to declaration
---   - gd: Go to definitions in Telescope
---   - K: Show hover information
---   - <leader>ca: Trigger code actions
-
--- Auto Commands:
---   - CursorHold and CursorHoldI: Open float diagnostic window on cursor hold
-
 return {
 	{
 		"williamboman/mason.nvim",
@@ -70,35 +58,21 @@ return {
 				end,
 			})
 
-      local wk = require("which-key")
-      wk.register({
-        ["c"] = {
-          a = { vim.lsp.buf.code_action, "Code actions" },
-          d = { "<cmd>Telescope lsp_definitions<CR>", "Go to definition" },
-          D = { vim.lsp.buf.declaration, "Go to declaration" },
-          i = { vim.lsp.buf.hover, "Show hover info" },
-          I = { "<cmd>lua vim.diagnostic.open_float(nil, {focus=true, scope='line'})<CR>", "Show diagnostics" },
-          R = { "<cmd>Telescope lsp_references<CR>", "Find references" },
-          s = { "<cmd>LspRestart<CR>", "Restart LSP servers" }, 
-        }
-      }, { prefix = "<leader>" })
-			-- vim.keymap.set(
-			-- 	"n",
-			-- 	"<leader>d",
-			-- 	":lua vim.diagnostic.open_float(nil, {focus=true, scope='line'})<CR>",
-			-- 	{ silent = true }
-			-- )
-			-- vim.keymap.set("n", "<leader>rs", ":LspRestart<CR>", { silent = true, desc = "Restart LSP servers" })
-			-- vim.keymap.set("n", "gR", "<cmd>Telescope lsp_references<CR>", { silent = true, desc = "Find references" })
-			-- vim.keymap.set("n", "gD", vim.lsp.buf.declaration, { silent = true, desc = "Go to declaration" })
-			-- vim.keymap.set(
-			-- 	"n",
-			-- 	"gd",
-			-- 	"<cmd>Telescope lsp_definitions<CR>",
-			-- 	{ silent = true, desc = "Go to definition" }
-			-- )
-			-- vim.keymap.set("n", "<leader>ci", vim.lsp.buf.hover, { silent = true, desc = "Show hover information" })
-			-- vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, { silent = true, desc = "Trigger code actions" })
+			local wk = require("which-key")
+			wk.register({
+				["c"] = {
+					a = { vim.lsp.buf.code_action, "Code actions" },
+					d = { "<CMD>Telescope lsp_definitions<CR>", "Go to definition" },
+					D = { vim.lsp.buf.declaration, "Go to declaration" },
+					I = { vim.lsp.buf.hover, "Show hover info" },
+					i = {
+						"<cmd>lua vim.diagnostic.open_float(nil, {focus=true, scope='line'})<CR>",
+						"Show diagnostics",
+					},
+					R = { "<cmd>Telescope lsp_references<CR>", "Find references" },
+					s = { "<cmd>LspRestart<CR>", "Restart LSP servers" },
+				},
+			}, { prefix = "<leader>" })
 		end,
 	},
 }

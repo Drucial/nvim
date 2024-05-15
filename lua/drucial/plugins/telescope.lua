@@ -37,6 +37,14 @@ return {
 					},
 				},
 			},
+      pickers = {
+        lsp_definitions = {
+          jump_type = "vsplit",
+        },
+        lsp_type_definitions = {
+          jump_type = "vsplit",
+        },
+      }
 		})
 
 		telescope.load_extension("fzf")

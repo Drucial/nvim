@@ -25,6 +25,7 @@ return {
 				null_ls.builtins.formatting.prettier,
 				null_ls.builtins.diagnostics.rubocop,
 				null_ls.builtins.formatting.erb_lint,
+        null_ls.builtins.diagnostics.shellcheck,
 			},
 			on_attach = function(client, bufnr)
 				if client.supports_method("textDocument/formatting") then
@@ -33,11 +34,11 @@ return {
 			end,
 		})
 
-    local wk = require("which-key")
-    wk.register({
-      ["c"] = {
-        f = { "<cmd>lua vim.lsp.buf.formatting()<CR>", "Format buffer" },
-      }
-    })
+		local wk = require("which-key")
+		wk.register({
+			["c"] = {
+				f = { "<cmd>lua vim.lsp.buf.format()<CR>", "Format buffer" },
+			},
+		}, { prefix = "<leader>" })
 	end,
 }

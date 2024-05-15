@@ -35,8 +35,8 @@ return {
           name = "+ Git",
           g = { "<cmd>LazyGit<cr>", "Open lazy git" },
         },
-				["s"] = {
-					name = "+ Split",
+				["w"] = {
+					name = "+ Workspace/Window",
 					e = { "<C-w>=", "Make splits equal size" },
 					h = { "<C-w>s", "Split window horizontally" },
 					m = { "<cmd>MaximizerToggle<CR>", "Maximize/minimize a split" },

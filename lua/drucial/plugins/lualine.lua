@@ -27,6 +27,27 @@ local git_repo = function()
 	return cached_git_repo
 end
 
+local cached_branch = nil
+
+local truncate_branch = function()
+  if cached_branch ~= nil then
+    return cached_branch
+  end
+
+	local branch = vim.fn.system("git branch --show-current 2> /dev/null | tr -d '\n'")
+	if branch == nil or branch == "" then
+		cached_branch = ""
+	end
+
+	if branch and string.len(branch) > 30 then
+		cached_branch =  string.sub(branch, 1, 30) .. "..."
+	else
+   cached_branch = branch
+	end
+
+  return cached_branch
+end
+
 return {
 	"nvim-lualine/lualine.nvim",
 	dependencies = { "nvim-tree/nvim-web-devicons" },
@@ -77,7 +98,7 @@ return {
 			},
 			sections = {
 				lualine_a = { "mode" },
-				lualine_b = { git_repo, "branch", {
+				lualine_b = { git_repo, truncate_branch, {
 					"filename",
 					path = 4,
 				} },
