@@ -25,7 +25,7 @@ return {
 				null_ls.builtins.formatting.prettier,
 				null_ls.builtins.diagnostics.rubocop,
 				null_ls.builtins.formatting.erb_lint,
-        null_ls.builtins.diagnostics.shellcheck,
+        -- null_ls.builtins.diagnostics.shellcheck,
 			},
 			on_attach = function(client, bufnr)
 				if client.supports_method("textDocument/formatting") then
